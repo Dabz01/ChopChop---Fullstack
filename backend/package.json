@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "build": "nest build",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev"
-  },
+  "start": "nest start",
+  "start:dev": "nest start --watch",
+  "build": "nest build",
+  "prisma:generate": "prisma generate",
+  "prisma:migrate": "prisma migrate dev",
+  "postdeploy": "prisma migrate deploy"
+},
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
