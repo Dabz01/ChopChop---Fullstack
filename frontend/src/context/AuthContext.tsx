@@ -7,6 +7,7 @@ import { authApi, loadAuthTokenFromStorage, setAuthToken } from '@/lib/api';
 interface AuthContextValue {
   user: User | null;
   loading: boolean;
+  isOwner: boolean;
   login: (phoneOrEmail: string, password: string) => Promise<void>;
   register: (payload: {
     name: string;
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Load token from localStorage and fetch /auth/me on mount
   useEffect(() => {
     loadAuthTokenFromStorage();
     authApi
@@ -55,11 +57,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setAuthToken(null);
   };
 
+  const isOwner = !!user && user.role === 'RESTAURANT_OWNER';
+
   return (
     <AuthContext.Provider
       value={{
         user,
         loading,
+        isOwner,
         login,
         register,
         logout,
