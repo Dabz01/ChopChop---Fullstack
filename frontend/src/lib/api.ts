@@ -62,12 +62,31 @@ export const authApi = {
 };
 
 export const restaurantApi = {
+  // Public: list all restaurants
   async list() {
     const { data } = await api.get<Restaurant[]>('/restaurants');
     return data;
   },
+
+  // Public: get restaurant with its menu
   async getWithMenu(id: string) {
-    const { data } = await api.get<RestaurantWithMenu>(`/restaurants/${id}/menu`);
+    const { data } = await api.get<RestaurantWithMenu>(
+      `/restaurants/${id}/menu`
+    );
+    return data;
+  },
+
+  // Owner: get restaurants that belong to the authenticated owner
+  async myRestaurants() {
+    const { data } = await api.get<Restaurant[]>('/owner/restaurants');
+    return data;
+  },
+
+  // Owner: get orders for a specific restaurant
+  async myRestaurantOrders(restaurantId: string) {
+    const { data } = await api.get<Order[]>(
+      `/restaurants/${restaurantId}/orders`
+    );
     return data;
   },
 };
