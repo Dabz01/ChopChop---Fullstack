@@ -11,9 +11,9 @@ async function bootstrap() {
   });
 
   const configService = app.get(ConfigService);
-  const port = configService.get('PORT') || 4000;
+  const port = configService.get('PORT') || process.env.PORT || 4000;
 
-  await app.listen(port);
-  console.log(`Backend running on http://localhost:${port}`);
+  await app.listen(port as number);
+  console.log(`Backend running on port ${port}`);
 }
 bootstrap();
